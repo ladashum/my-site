@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Услуги и цены — сайты и Telegram-боты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rose: #B5697A;
+    --rose-dark: #8F4C5C;
+    --sage: #6E8B5A;
+    --sage-dark: #566F46;
+    --dark: #2B2B2B;
+    --grey: #6B6B6B;
+    --light-rose: #F6E9EC;
+    --light-sage: #EEF1E7;
+    --white: #FFFFFF;
+    --line: #E7E1E2;
+  }
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    font-family: 'Manrope', sans-serif;
+    color: var(--dark);
+    background: var(--white);
+    line-height: 1.5;
+    overflow-x: hidden;
+    font-size: 15.5px;
+  }
+  h1, h2, h3, .display{ font-family: 'Fraunces', serif; font-weight: 600; letter-spacing: -0.01em; }
+  a{ color: inherit; }
+
+  /* ---------- sticky nav ---------- */
+  #topnav{
+    position: sticky; top:0; z-index: 500;
+    background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items:center; justify-content: space-between;
+    padding: 14px 6vw;
+  }
+  #topnav .brand{ font-family:'Fraunces', serif; font-weight:600; color: var(--rose-dark); font-size: 16px; }
+  #topnav nav{ display:flex; gap: 26px; }
+  #topnav nav a{ font-size: 13.5px; color: var(--dark); text-decoration:none; font-weight: 600; margin-left: 26px; }
+  #topnav nav a:first-child{ margin-left: 0; }
+  #topnav nav a:hover{ color: var(--rose-dark); }
+  @media (max-width: 640px){ #topnav nav{ gap:14px; } #topnav nav a{ font-size:12px; } }
+
+  section{ padding: 64px 6vw; position: relative; }
+  .eyebrow{
+    font-size: 12px; text-transform: uppercase; letter-spacing: .12em;
+    color: var(--rose-dark); font-weight: 800; margin-bottom: 10px;
+  }
+  .section-title{ font-size: clamp(24px, 3vw, 34px); margin-bottom: 8px; }
+  .section-sub{ color: var(--grey); font-size: 15px; max-width: 640px; margin-bottom: 28px; }
+
+  .blob{ position: absolute; border-radius: 50%; z-index: 0; opacity: .6; pointer-events:none; }
+
+  /* ---------- HERO ---------- */
+  #hero{ padding: 70px 6vw 56px; background: var(--white); }
+  #hero .blob.b1{ width: 380px; height: 380px; background: var(--light-rose); top: -140px; right: -100px; }
+  #hero .blob.b2{ width: 200px; height: 200px; background: var(--light-sage); bottom: -80px; right: 20vw; }
+  .hero-inner{ position: relative; z-index: 1; max-width: 760px; }
+  .hero-inner .eyebrow{ margin-bottom: 16px; }
+  .hero-inner h1{ font-size: clamp(30px, 4.6vw, 50px); line-height: 1.08; margin-bottom: 14px; color: var(--rose-dark); }
+  .hero-inner h1 em{ font-style: normal; color: var(--sage-dark); }
+  .hero-inner p{ font-size: 16.5px; color: var(--grey); max-width: 560px; }
+
+  /* ---------- TABLE (mirrors the deck's pricing tables) ---------- */
+  table.price{ width:100%; border-collapse: collapse; position: relative; z-index:1; margin-bottom: 14px; }
+  table.price th{
+    background: var(--rose); color: #fff; text-align: left;
+    font-size: 13px; font-weight: 800; padding: 12px 18px; letter-spacing: .01em;
+  }
+  table.price.sage th{ background: var(--sage); }
+  table.price td{ padding: 14px 18px; font-size: 14.5px; vertical-align: top; }
+  table.price tr.alt td{ background: var(--light-rose); }
+  table.price.sage tr.alt td{ background: var(--light-sage); }
+  table.price td.price-cell{ font-weight: 800; font-family:'Fraunces',serif; font-size: 16px; white-space: nowrap; }
+  table.price td.time-cell{ color: var(--grey); white-space: nowrap; }
+  table.price td.name-cell b{ display:block; font-weight:700; }
+  table.price td.name-cell span{ color: var(--grey); font-size: 13px; }
+  .note{ font-size: 13px; color: var(--grey); font-style: italic; position: relative; z-index:1; }
+
+  /* ---------- two-col layout ---------- */
+  .twocol{ display:grid; grid-template-columns: 1.1fr .9fr; gap: 34px; position: relative; z-index:1; }
+  @media (max-width: 820px){ .twocol{ grid-template-columns: 1fr; } }
+
+  .feature-list{ list-style:none; }
+  .feature-list li{
+    font-size: 14.5px; padding: 10px 0 10px 24px; position: relative;
+    border-bottom: 1px solid var(--line);
+  }
+  .feature-list li:last-child{ border-bottom:none; }
+  .feature-list li::before{
+    content:""; position:absolute; left:0; top: 17px; width:8px; height:8px; border-radius:50%;
+    background: var(--sage);
+  }
+
+  .price-block{
+    background: var(--light-sage); border-radius: 14px; padding: 22px 24px; align-self:start;
+  }
+  .price-block .tag{
+    display:inline-block; font-size:11px; font-weight:800; letter-spacing:.05em; text-transform:uppercase;
+    background: var(--sage); color:#fff; padding:4px 11px; border-radius:100px; margin-bottom:12px;
+  }
+  .price-block .big{ font-size: 28px; font-family:'Fraunces',serif; font-weight:800; margin-bottom:4px; }
+  .price-block .time{ font-size: 13px; color: var(--grey); }
+
+  /* ---------- support + process ---------- */
+  .support-card{ background: var(--light-rose); border-radius: 14px; padding: 22px 24px; }
+  .support-card .tag{
+    display:inline-block; font-size:11px; font-weight:800; letter-spacing:.05em; text-transform:uppercase;
+    background: var(--rose); color:#fff; padding:4px 11px; border-radius:100px;
+  }
+  .support-card .big{ font-size: 24px; font-family:'Fraunces',serif; font-weight:800; margin: 6px 0 2px; }
+  .support-card .time{ font-size: 13px; color: var(--grey); margin-bottom: 14px; }
+  .support-card p.desc{ font-size: 14px; color: var(--dark); margin-bottom: 4px; }
+  .support-card .alt-line{ margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(0,0,0,.08); font-size: 13.5px; color: var(--grey); }
+  .support-card .alt-line b{ color: var(--dark); }
+
+  .steps{ display:flex; flex-direction:column; }
+  .step{ display:flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .step:last-child{ border-bottom:none; }
+  .step .num{ font-family:'Fraunces',serif; font-weight:700; font-size:18px; color: var(--rose-dark); min-width: 26px; }
+  .step h3{ font-size: 15px; margin-bottom: 2px; }
+  .step p{ font-size: 13px; color: var(--grey); }
+
+  /* ---------- CTA ---------- */
+  #cta{ background: var(--light-rose); }
+  #cta .blob{ width: 300px; height: 300px; background: var(--light-sage); bottom: -120px; left: -80px; }
+  #cta-inner{ position: relative; z-index:1; max-width: 680px; }
+  #cta h2{ color: var(--rose-dark); margin-bottom: 10px; }
+  #cta p.lead{ color: var(--grey); font-size: 15.5px; margin-bottom: 20px; }
+  #cta .facts{ display:flex; flex-wrap:wrap; gap: 10px 30px; margin-bottom: 20px; }
+  #cta .facts div{ font-size: 13.5px; margin-right: 30px; }
+  #cta .facts b{ display:block; font-size: 14px; margin-bottom:1px; }
+  #cta .terms{ font-size: 14px; font-weight: 700; color: var(--dark); }
+
+  footer{ text-align:center; padding: 20px 6vw 34px; font-size: 12px; color: var(--grey); }
+</style>
+</head>
+<body>
+
+<div id="topnav">
+  <div class="brand">Сайты и Telegram-боты</div>
+  <nav>
+    <a href="#sites">Сайты</a>
+    <a href="#bot">Боты</a>
+    <a href="#support">Сопровождение</a>
+    <a href="#cta">Контакты</a>
+  </nav>
+</div>
+
+<section id="hero">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="hero-inner">
+    <div class="eyebrow">Сайты и Telegram-боты</div>
+    <h1>От лендинга до <em>магазина в Telegram</em></h1>
+    <p>Полный спектр: сайты любой сложности, Telegram-боты с оплатой и каталогом, доработки и сопровождение после запуска. Ниже — что входит в каждый формат, сколько это стоит и сколько занимает по времени.</p>
+  </div>
+</section>
+
+<section id="sites">
+  <div class="eyebrow">01 · Сайты</div>
+  <h2 class="section-title">Лендинг и многостраничные сайты</h2>
+  <p class="section-sub">Разработка с нуля — от структуры и текстов до готовой страницы. Можно с индивидуальным дизайном или на основе проверенного шаблона.</p>
+
+  <table class="price">
+    <tr><th style="width:46%">Услуга</th><th style="width:24%">Стоимость</th><th>Срок</th></tr>
+    <tr>
+      <td class="name-cell"><b>Лендинг — индивидуальный дизайн</b><span>Уникальный стиль под бренд с нуля</span></td>
+      <td class="price-cell">30 000 – 50 000 ₽</td>
+      <td class="time-cell">По объёму</td>
+    </tr>
+    <tr class="alt">
+      <td class="name-cell"><b>Лендинг — готовый шаблон</b><span>На 20–30% дешевле индивидуального дизайна</span></td>
+      <td class="price-cell">21 000 – 40 000 ₽</td>
+      <td class="time-cell">По объёму</td>
+    </tr>
+    <tr>
+      <td class="name-cell"><b>Многостраничный сайт — индивидуальный дизайн</b><span>От 3–5 страниц, единый стиль и навигация</span></td>
+      <td class="price-cell">70 000 – 120 000 ₽</td>
+      <td class="time-cell">По объёму</td>
+    </tr>
+    <tr class="alt">
+      <td class="name-cell"><b>Многостраничный сайт — готовый шаблон</b><span>На 20–30% дешевле индивидуального дизайна</span></td>
+      <td class="price-cell">50 000 – 95 000 ₽</td>
+      <td class="time-cell">По объёму</td>
+    </tr>
+    <tr>
+      <td class="name-cell"><b>Адаптация существующего сайта</b><span>Новый город, сезон, контакты, зоны доставки</span></td>
+      <td class="price-cell">8 000 – 25 000 ₽</td>
+      <td class="time-cell">3–5 раб. дней</td>
+    </tr>
+  </table>
+  <p class="note">Итоговая стоимость фиксируется после брифа и зависит от объёма текстов и правок.</p>
+</section>
+
+<section id="bot" style="background:var(--light-rose);">
+  <div class="eyebrow">02 · Telegram-боты</div>
+  <h2 class="section-title">Бот-магазин с оплатой</h2>
+  <p class="section-sub">Полноценный интернет-магазин внутри Telegram: каталог, корзина, оформление заказа и приём оплаты — без отдельного сайта.</p>
+
+  <div class="twocol">
+    <div>
+      <ul class="feature-list">
+        <li>Мини-приложение с каталогом: фото, цены, остатки</li>
+        <li>Корзина и оформление заказа в 3 шага</li>
+        <li>Приём оплаты через ЮKassa</li>
+        <li>Базовая админ-панель в самом боте</li>
+        <li>Уведомления о новых заказах в реальном времени</li>
+      </ul>
+    </div>
+    <div class="price-block">
+      <div class="tag">Стоимость</div>
+      <div class="big">от 50 000 ₽</div>
+      <div class="time">2–3 недели с момента предоплаты и получения материалов</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:17px; margin: 30px 0 12px;">Что можно добавить</h3>
+  <table class="price sage">
+    <tr><th style="width:46%">Опция</th><th style="width:24%">Стоимость</th><th>Срок</th></tr>
+    <tr>
+      <td class="name-cell"><b>Живой апдейт остатков</b><span>Изменения в админке сразу видны в мини-приложении</span></td>
+      <td class="price-cell">+15 000 – 25 000 ₽</td>
+      <td class="time-cell">+3–5 дней</td>
+    </tr>
+    <tr class="alt">
+      <td class="name-cell"><b>Отдельная веб-админка</b><span>Управление в браузере вместо бота</span></td>
+      <td class="price-cell">+30 000 – 50 000 ₽</td>
+      <td class="time-cell">+1–2 недели</td>
+    </tr>
+    <tr>
+      <td class="name-cell"><b>Бот и мини-апп для MAX</b><span>Перенос готовой логики Telegram-бота</span></td>
+      <td class="price-cell">+20 000 – 30 000 ₽</td>
+      <td class="time-cell">+1–2 недели</td>
+    </tr>
+  </table>
+  <p class="note">MAX: регистрация ботов сейчас доступна юрлицам (ООО); условия для ИП уточняются перед стартом этого этапа.</p>
+</section>
+
+<section id="support">
+  <div class="eyebrow">03 · После запуска</div>
+  <h2 class="section-title">Сопровождение и этапы работы</h2>
+
+  <div class="twocol">
+    <div class="support-card">
+      <div class="tag">Абонентское обслуживание</div>
+      <div class="big">5 000 ₽ / мес</div>
+      <div class="time">Мониторинг и мелкие правки, хостинг — отдельно</div>
+      <p class="desc" style="margin-top:14px;">Слежу за стабильной работой сайта или бота и оперативно чиню мелкие проблемы. Новый функционал оценивается отдельной задачей.</p>
+      <div class="alt-line"><b>Без абонентки:</b> можно обращаться по мере необходимости — доработки оцениваются индивидуально под задачу.</div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <div><h3>Бриф и предоплата</h3><p>Обсуждаем задачу и сроки. 50% — перед стартом.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div><h3>Дизайн и материалы</h3><p>Согласовываем стиль, собираю тексты, фото, доступы.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div><h3>Разработка</h3><p>Собираю сайт или бота, показываю промежуточные результаты.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <div><h3>Тестирование и передача</h3><p>Проверяем вместе, оставшиеся 50% — и проект переходит на ваш аккаунт.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="blob"></div>
+  <div id="cta-inner">
+    <div class="eyebrow">Готовы начать?</div>
+    <h2>Обсудим ваш проект</h2>
+    <p class="lead">Напишите — подберём формат под задачу и бюджет: лендинг, многостраничный сайт или бот в Telegram.</p>
+    <div class="facts">
+      <div><b>Все аккаунты — ваши</b>Репозиторий, хостинг и платёжные сервисы — на вашем имени</div>
+      <div><b>Прозрачные сроки</b>Точная стоимость и срок — после брифа</div>
+    </div>
+    <div class="terms">Оплата: 50% предоплата · 50% по завершении разработки</div>
+  </div>
+</section>
+
+<footer>Обновлено · Июль 2026</footer>
+
+</body>
+</html>
