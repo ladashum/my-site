@@ -1,16 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://docs.google.com/forms/d/e/1FAIpQLScmTgwD3PL6rEo-JzU8wTneybWOpXsDPsIpy4K3ptfioN6S1g/viewform?usp=dialog');
 
 :root {
-  --rose: #B5697A;
-  --rose-dark: #8F4C5C;
-  --sage: #6E8B5A;
-  --sage-dark: #566F46;
-  --dark: #2B2B2B;
-  --grey: #6B6B6B;
-  --light-rose: #F6E9EC;
-  --light-sage: #EEF1E7;
-  --white: #FFFFFF;
-  --line: #E7E1E2;
+  /* Maritime Palette - из референса */
+  --pier: #7B6B56;           /* Pier SW 7545 - основной коричневый */
+  --dockside-blue: #9BA8B3;  /* Dockside Blue SW 7601 - светло-голубой */
+  --beachcomber: #D4C4A8;    /* Beachcomber SW 9617 - песочный */
+  --salty-dog: #2C3E50;      /* Salty Dog SW 9177 - тёмно-синий */
+  --sea-mariner: #546B7B;    /* Sea Mariner SW 9640 - серо-синий */
+  --white-sail: #F5F7F9;     /* White Sail SW 9622 - почти белый */
+  
+  /* Aliases для совместимости */
+  --rose: #7B6B56;           /* Pier */
+  --rose-dark: #546B7B;      /* Sea Mariner */
+  --sage: #2C3E50;           /* Salty Dog */
+  --sage-dark: #1a2633;      /* Darker Salty Dog */
+  --dark: #1a1a1a;
+  --grey: #6B7280;
+  --light-rose: #E8E3DB;     /* Light Pier */
+  --light-sage: #E8F0F7;     /* Light Dockside */
+  --white: #F5F7F9;          /* White Sail */
+  --line: #D4D4D4;
 }
 
 * {
