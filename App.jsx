@@ -198,17 +198,17 @@ export default function App() {
               <h3>Расскажите о вашем проекте</h3>
               
               {/* GOOGLE FORM IFRAME */}
-              <iframe
-                src="https://docs.google.com/forms/d/e/1FAIpQLScmTgwD3PL6rEo-JzU8wTneybWOpXsDPsIpy4K3ptfioN6S1g/viewform?embedded=true"
-                width="100%"
-                height="600"
-                frameBorder="0"
-                marginHeight="0"
-                marginWidth="0"
-                title="Project Survey"
-              >
-                Загрузка...
-              </iframe>
+             <iframe
+  src="ВСТАВЬ_СЮДА_ССЫЛКУ"
+  width="100%"
+  height="600"
+  frameBorder="0"
+  marginHeight="0"
+  marginWidth="0"
+  title="Project Survey"
+>
+  Загрузка...
+</iframe>
               
               <p style={{fontSize:'12px', color:'var(--grey)', marginTop:'12px', textAlign:'center'}}>
                 💡 Используй форму выше или пиши напрямую в Telegram
